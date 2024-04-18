@@ -1,40 +1,57 @@
 #include "Cytron_SmartDriveDuo.h"
 
-
-
-
-
-boolean hardwareSerial;
-Cytron_SmartDriveDuo::Cytron_SmartDriveDuo(int mode, int txPin, uint32_t baudrate)
+Cytron_SmartDriveDuo::Cytron_SmartDriveDuo(int mode, int in1Pin, int in2Pin, int an1Pin, int an2Pin)
 {
   _mode = mode;
-  _txPin = txPin;
-
-  if (_txPin == 1) {
-    hardwareSerial = true;
-    Serial.begin(baudrate);
-    while (!Serial);
-  }
+  _an1Pin = an1Pin;
+  _an2Pin = an2Pin;
+  _in1Pin = in1Pin;
+  _in2Pin = in2Pin;
+  
+  pinMode(_an1Pin, OUTPUT);
+  pinMode(_an2Pin, OUTPUT);
+  pinMode(_in1Pin, OUTPUT);
+  pinMode(_in2Pin, OUTPUT);
 }
 
+Cytron_SmartDriveDuo::Cytron_SmartDriveDuo(int mode, uint32_t baudrate)
+{
+  _mode = mode;
+  Serial.begin(baudrate);
+  while (!Serial);
+}
 
+Cytron_SmartDriveDuo::Cytron_SmartDriveDuo(int mode, int boardId, uint32_t baudrate)
+{
+  _mode = mode;
+  _boardId = boardId;
+  Serial.begin(baudrate);
+  while (!Serial);
+}
 
-
+void Cytron_SmartDriveDuo::initialByte(uint8_t dummyByte)
+{
+  Serial.write(dummyByte);
+}
 
 void Cytron_SmartDriveDuo::control(signed int motorLSpeed, signed int motorRSpeed)
 {
   switch (_mode) {
     case RC_MCU:
-      // ... (no changes here)
+      // ... (same as before)
+      break;
 
     case PWM_INDEPENDENT:
-      // ... (no changes here)
+      // ... (same as before)
+      break;
 
     case SERIAL_SIMPLIFIED:
-      // ... (no changes here)
+      // ... (same as before)
+      break;
 
     case SERIAL_PACKETIZED:
-      // ... (no changes here)
+      // ... (same as before)
+      break;
 
     default:
       break;
