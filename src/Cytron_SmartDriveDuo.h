@@ -2,14 +2,10 @@
 #define CYTRON_SMARTDRIVEDUO_h
 
 #include "Arduino.h"
-#include <SoftwareSerial.h>
 
-// Arduino Leonardo
-#if defined (__AVR_ATmega32U4__)
-  #define Serial Serial1
-#else
-  #define Serial Serial
-#endif
+
+ #define Serial Serial1
+
 
 enum {
   RC_MCU,
